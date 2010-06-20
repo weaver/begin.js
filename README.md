@@ -35,10 +35,10 @@ second.
     });
 
 Nesting quickly becomes uncomfortable when performing a long series of
-these operations in order.  To address this, operations are sequenced
-by listing a series of `(op, arg1, arg2, ...)` statements.  When a
-statement produces a value you need, use `bind()` or `success()` to
-pass it to a callback.
+these operations in order.  To address this, `begin()` allows you to
+sequence operations by listing as series of `(op, arg1, ...)`
+statements.  When a statement produces a value you need, use `bind()`
+or `success()` to pass it to a callback.
 
     begin()
       (fs.readFile, '/tmp/a/b').success(function(data) {
@@ -47,16 +47,16 @@ pass it to a callback.
       (fs.unlink, '/tmp/a/b')
       (fs.rmdir, '/tmp/a');
 
-Basically, `begin()` allows you to just write just the callbacks you
-want.  To minimize nesting, a callback can inject more operations into
-the sequence by using `this.begin()`.  See [[examples/filesystem.js]]
-for a longer example with comparisons to synchronous and
-straight-callback styles.
+As you can see, `begin()` doesn't eliminate callbacks completely.  It
+allows you to write just the callbacks you want.  To minimize nesting,
+a callback can inject more operations into the sequence by using
+`this.begin()`.  See [filesystems.js][3] for a longer example
+with comparisons to synchronous and straight-callback styles.
 
 Other projects like [Do][1] and [FileIO][2] have similar goals, but
 encourage writing methods in a "continuable" or monadic style.  The
 `begin()` construct is designed to work with existing callback
-conventions.  Use `begin()` when it suits you; or use an explicit
+conventions.  Use it when it suits you; or use an explicit
 callback-style when you want.
 
 ## What About Parallel Operations? ##
@@ -68,8 +68,7 @@ doesn't matter.
       (fs.writeFile, '/tmp/p1', 'File 1')
       (fs.writeFile, '/tmp/p2', 'File 2')
 
-See [[examples/parallel.js]] and [[examples/touch.js]] for more
-examples.
+See [parallel.js][4] and [touch.js][5] examples.
 
 ## API ##
 
@@ -94,7 +93,7 @@ declaration.  All callbacks are called in the context of the `begin()`
 itself.  This allows callbacks to inject more operations into the
 sequence.
 
-See [[examples]] and [[tests/api.js]] to see how these methods can be
+See [examples][6] and [tests/api.js][7] to see how these methods can be
 combined.
 
 **.begin()**
@@ -136,13 +135,15 @@ Convert a function that takes a callback in the value-only form
 `function(err, v1, ...)`.
 
 **liftS(fn)**
-Convert a synchronous function to an asynchronous callback form.  This
-is here for completeness right now; the synchronous call will still
-block the process.
+Convert a synchronous function to use an asynchronous callback form.
+This is here for completeness right now; the synchronous call will
+still block the process.
+
+### Methods ###
 
 **.liftC(fn, arg1, arg2, ...)**
 For convenience, this method will `liftC` the `fn` of an operation in
-pa series.
+a series.
 
 **.liftS(fn, arg1, arg2, ...)**
 For convenience, this method will `liftS` the `fn` of an operation in
@@ -150,3 +151,8 @@ a series.
 
 [1]: http://github.com/creationix/do
 [2]: http://inimino.org/~inimino/blog/fileio_v0.2
+[3]: examples/filesystem.js
+[4]: examples/parallel.js
+[5]: examples/touch.js
+[6]: examples
+[7]: tests/api.js
