@@ -151,8 +151,8 @@ a series.
 
 [1]: http://github.com/creationix/do
 [2]: http://inimino.org/~inimino/blog/fileio_v0.2
-[3]: examples/filesystem.js
-[4]: examples/parallel.js
-[5]: examples/touch.js
-[6]: examples
-[7]: tests/api.js
+[3]: tree/master/examples/filesystem.js
+[4]: tree/master/examples/parallel.js
+[5]: tree/master/examples/touch.js
+[6]: tree/master/examples
+[7]: tree/master/tests/api.js
