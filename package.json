@@ -1,0 +1,6 @@
+{
+  "name": "begin",
+  "version": "0.1.0",
+  "author": "Ben Weaver <ben@orangesoda.net>",
+  "main": "./lib/begin"
+}
